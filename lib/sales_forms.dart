@@ -10,7 +10,13 @@ class CompactSalesForm extends StatefulWidget {
 class _CompactSalesFormState extends State<CompactSalesForm> {
   Container customTab(String text, Color color) {
     return Container(
-      color: color,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(5),
+          topRight: Radius.circular(5),
+        ),
+        color: color
+      ),
       height: 25,
       width: 150,
       child: Center(
