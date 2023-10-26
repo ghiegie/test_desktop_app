@@ -8,21 +8,26 @@ class CompactSalesForm extends StatefulWidget {
 }
 
 class _CompactSalesFormState extends State<CompactSalesForm> {
-  Container customTab(String text, Color color) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(5),
-          topRight: Radius.circular(5),
-        ),
-        color: color
-      ),
-      height: 25,
-      width: 150,
-      child: Center(
-        child: Text(text),
-      ),
-    );
+  var tab1 = {
+    "inTab"
+  }
+
+  bool pointerInTab1 = false;
+  bool pointerInTab2 = false;
+  Color _hoverColor1 = Colors.lightGreen;
+  Color _hoverColor2 = Colors.pink;
+
+  void hoverTab() {
+    pointerInTab1 = !pointerInTab1 ? !pointerInTab1 : pointerInTab1;
+    _hoverColor1 = !pointerInTab1 ? Colors.pink : Colors.lightGreen;
+
+    // if (!pointerInTab1) {
+    //   pointerInTab1 = !pointerInTab1;
+    //   _hoverColor1 = Colors.pink;
+    // } else {
+    //   pointerInTab1 = !pointerInTab1;
+    //   _hoverColor1 = Colors.lightGreen;
+    // }
   }
 
   @override
@@ -34,8 +39,52 @@ class _CompactSalesFormState extends State<CompactSalesForm> {
             children: [
               Row(
                 children: [
-                  customTab("Sales Order", Colors.orange),
-                  customTab("Sales Form Maker", Colors.pink),
+                  MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    onEnter: (onEnter) {
+                      setState(() {
+                        hoverTab();
+                      });
+                    },
+                    onExit: (onExit) {
+                      setState(() {
+                        hoverTab();
+                      });
+                    },
+                    child: CustomTab(
+                      label: "Sample 1",
+                      color: _hoverColor1,
+                      upDownPad: constraints.minHeight * 0.01,
+                      width: constraints.maxWidth * 0.1,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(5),
+                        topRight: Radius.circular(5),
+                      ),
+                    ),
+                  ),
+                  MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    onEnter: (onEnter) {
+                      setState(() {
+                        hoverTab();
+                      });
+                    },
+                    onExit: (onExit) {
+                      setState(() {
+                        hoverTab();
+                      });
+                    },
+                    child: CustomTab(
+                      label: "Sample 1",
+                      color: _hoverColor1,
+                      upDownPad: constraints.minHeight * 0.01,
+                      width: constraints.maxWidth * 0.1,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(5),
+                        topRight: Radius.circular(5),
+                      ),
+                    ),
+                  ),
                 ],
               ),
               Expanded(
@@ -47,6 +96,35 @@ class _CompactSalesFormState extends State<CompactSalesForm> {
           );
         },
       ),
+    );
+  }
+}
+
+class CustomTab extends StatelessWidget {
+  final String label;
+  final Color color;
+  final double upDownPad;
+  final double width;
+  final BorderRadius borderRadius;
+
+  const CustomTab(
+      {super.key,
+      required this.label,
+      required this.color,
+      required this.upDownPad,
+      required this.width,
+      required this.borderRadius});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(borderRadius: borderRadius, color: color),
+      width: width,
+      padding: EdgeInsets.only(
+        top: upDownPad,
+        bottom: upDownPad,
+      ),
+      child: Center(child: Text(label)),
     );
   }
 }
